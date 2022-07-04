@@ -12,11 +12,13 @@ export default async function handler(req, res){
         method: "POST",
         body: JSON.stringify({ email, password, confirmPassword }),
         headers: {
+
           "Content-Type": "application/json",
         },
       });
 
       const data = await response.json();
+      
       if(!response.ok){
           return res.status(400).json({message : data.message || "something went wrong!"})
       }

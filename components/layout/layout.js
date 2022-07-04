@@ -6,7 +6,7 @@ function Layout(props) {
   return (
     <Fragment>
       <MainNavigation />
-      <main className="container py-5 d-flex justify-content-center">
+      <main>
         {props.children}
       </main>
       <Footer />

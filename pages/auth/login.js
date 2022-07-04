@@ -1,7 +1,28 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+
+//material ui components
+import Avatar from "@mui/material/Avatar";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme();
 
 function Login() {
   const emailInputRef = useRef("");
@@ -32,47 +53,82 @@ function Login() {
   };
 
   return (
-    <div className="border shadow p-5 rounded col-sm-8 col-md-6">
-      <form className="row g-3" onSubmit={handleLogin}>
-        <div className="mb-3">
-          <h2>Login</h2>
-        </div>
-        <div className="mb-3 input-group">
-          <span className="input-group-text">Email</span>
-          <input
-            className="form-control"
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign In
+          </Typography>
+        </Box>
+        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             ref={emailInputRef}
-            type="email"
             id="email"
-            required
-            placeholder="joe@example.com"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
           />
-        </div>
-        <div className="mb-3 input-group">
-          <span className="input-group-text">Password</span>
-          <input
-            className="form-control"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             ref={passwordInputRef}
-            type="password"
             id="password"
-            required
+            label="Password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
           />
-        </div>
-        <div className="col-auto">
-          <button className="btn btn-primary">Login</button>
-          <Link href={"/auth/register"}>
-            <a className="btn btn-link">Register</a>
-          </Link>
-        </div>
-        {loginError && (
-          <div className="row g-3">
-            <div className="alert alert-danger" role="alert">
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <NextLink href={"/auth/forgot-password"} passHref>
+                <Link variant="body2">
+                  Forgot password?
+                </Link>
+              </NextLink>
+            </Grid>
+            <Grid item>
+              <NextLink href={"/auth/register"} passHref>
+                <Link variant="body2">Don't have an account? Sign Up</Link>
+              </NextLink>
+            </Grid>
+          </Grid>
+          {loginError && (
+            <Alert severity="error" sx={{ mt: 3, mb: 2 }}>
+              <AlertTitle>Error</AlertTitle>
               {loginError}
-            </div>
-          </div>
-        )}
-      </form>
-    </div>
+            </Alert>
+          )}
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

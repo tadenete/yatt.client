@@ -1,15 +1,23 @@
-import Link from "next/link";
-import { Nav } from "react-bootstrap";
+import NextLink from "next/link";
+import { Fragment } from "react";
+import { AppBar, Toolbar, CssBaseline, Typography, Link } from "@mui/material";
+import BusinessIcon from "@mui/icons-material/BusinessOutlined";
 
 function MainNavigation() {
   return (
-    <Nav className="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-      <div className="container">
-        <Link href={"/"}>
-          <a className="navbar-brand logo">YATT Career</a>
-        </Link>
-      </div>
-    </Nav>
+    <Fragment>
+      <CssBaseline />
+      <AppBar position="relative">
+        <NextLink href={"/"} passHref>
+          <Toolbar>
+            <BusinessIcon sx={{ marginRight: 2 }} />
+            <Typography variant="h6" color="inherit" noWrap>
+              YATT Career
+            </Typography>
+          </Toolbar>
+        </NextLink>
+      </AppBar>
+    </Fragment>
   );
 }
 

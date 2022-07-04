@@ -1,7 +1,26 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-function Login() {
+//material ui components
+import Avatar from "@mui/material/Avatar";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
+import LockOpenlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme();
+
+function Register() {
   const emailInputRef = useRef("");
   const passwordInputRef = useRef("");
   const confirmPasswordInputRef = useRef("");
@@ -36,65 +55,88 @@ function Login() {
     }
   };
   return (
-    <div className="border shadow p-5 rounded col-sm-8 col-md-6">
-      <form className="row g-3" onSubmit={handleRegister}>
-        <div className="mb-3">
-          <h2>Register</h2>
-        </div>
-        <div className="mb-3 input-group">
-          <span className="input-group-text">Email</span>
-          <input
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOpenlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign Up
+          </Typography>
+        </Box>
+        <Box
+          component="form"
+          onSubmit={handleRegister}
+          noValidate
+          sx={{ mt: 1 }}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             ref={emailInputRef}
-            className="form-control"
-            type="email"
             id="email"
-            required
-            placeholder="joe@example.com"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
           />
-        </div>
-        <div className="mb-3 input-group">
-          <span className="input-group-text">Password</span>
-          <input
-            className="form-control"
+          <TextField
+            margin="normal"
+            required
+            fullWidth
             ref={passwordInputRef}
-            type="password"
             id="password"
-            required
-          />
-        </div>
-        <div className="mb-3 input-group">
-          <span className="input-group-text">Confirm Password</span>
-          <input
-            ref={confirmPasswordInputRef}
-            className="form-control"
+            label="Password"
+            name="password"
             type="password"
-            id="confirmPassword"
-            required
+            autoComplete="current-password"
           />
-        </div>
-        <div className="col-auto">
-          <button className="btn btn-primary">Register</button>
-          <Link href={"/auth/login"}>
-            <a className="btn btn-link">Login</a>
-          </Link>
-        </div>
-        {error && (
-          <div className="row g-3">
-            <div className="alert alert-danger" role="alert">
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            ref={confirmPasswordInputRef}
+            id="confirmPassword"
+            label="Confirm Password"
+            name="confirmPassword"
+            type="password"
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <NextLink href={"/auth/login"} passHref>
+                <Link variant="body2">Already have an account? Sign in</Link>
+              </NextLink>
+            </Grid>
+          </Grid>
+          {error && (
+            <Alert severity="error" sx={{ mt: 3, mb: 2 }}>
+              <AlertTitle>Error</AlertTitle>
               {error}
-            </div>
-          </div>
-        )}
-        {message && (
-          <div className="row g-3">
-            <div className="alert alert-info" role="alert">
-              {message}
-            </div>
-          </div>
-        )}
-      </form>
-    </div>
+            </Alert>
+          )}
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 
-export default Login;
+export default Register;

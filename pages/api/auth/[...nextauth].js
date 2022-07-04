@@ -5,8 +5,7 @@ import { isJwtExpired } from "jwt-check-expiration";
 async function refreshAccessToken(token) {
   try {
     //do a silent refresh
-  
-    const res = await fetch("http://localhost:5000/refresh", {
+      const res = await fetch("http://localhost:5000/refresh", {
       method: "POST",
       body: JSON.stringify({ refreshToken: token.refreshToken }),
       headers: {
@@ -62,6 +61,7 @@ export default NextAuth({
   callbacks: {
     //Getting the JWT token from the API response
     async jwt({ token, user }) {
+
       //initial signin
       if (user) {
         return { ...user };
