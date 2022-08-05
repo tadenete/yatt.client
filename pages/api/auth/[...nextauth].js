@@ -13,9 +13,7 @@ async function refreshAccessToken(token) {
         Authorization: `Bearer ${token.accessToken}`,
       },
     });
-
     const newToken = await res.json();
-
     if (!res.ok) {
       throw newToken;
     }
